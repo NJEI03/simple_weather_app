@@ -6,6 +6,7 @@ body, html {
     height: 100vh;
     font-family: Arial, sans-serif;
     display: flex;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     background-color: #f0f0f0;
@@ -14,7 +15,7 @@ h3{
     color: rgb(11, 42, 40);
 }
 body {
-    background-image: url('/daniel-ramirez-q4TfWtnz_xw-unsplash.jpg');
+    /* background-image: url('/sky.jpg'); */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -90,6 +91,7 @@ body {
     align-items: center;
     text-align: center;
     font-size: 20px;
+    transition:all 0.5s ease-in-out;
 }
 .weather-info p span {
     font-size: 16px;
@@ -111,5 +113,54 @@ body {
     }
     .weather-info p {
         width: 80%;
+    }
+}
+/* Add animation to icons */
+.weather-info p::before {
+    content: "☀️";
+    font-size: 40px;
+    animation: rotate 2s linear infinite;
+}
+
+/* Light blue gradient color for p boxes */
+.weather-info p {
+    background: linear-gradient(135deg, #e0f7fa, #80deea);
+    animation: breathe 3s ease-in-out infinite;
+}
+
+/* Keyframes for rotating icons */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Keyframes for breathing effect */
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+.weather-info p:hover {
+    animation: colorChange 1s ease-in-out forwards;
+}
+
+@keyframes colorChange {
+    0% {
+        background: linear-gradient(135deg, #e0f7fa, #80deea);
+    }
+    50% {
+        background: linear-gradient(135deg, #80deea, #e0f7fa);
+    }
+    100% {
+        background: linear-gradient(135deg, #e0f7fa, #80deea);
     }
 }

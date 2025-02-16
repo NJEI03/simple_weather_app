@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 return response.json();
             })
             .then(data => {
+                console.log(data);
                 document.getElementById("temp").textContent = data.current.temp_c + " °C";
                 document.getElementById("humidity").textContent = data.current.humidity + " %";
                 document.getElementById("description").textContent = data.current.condition.text;
@@ -26,14 +27,33 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById("sunset").textContent = data.forecast.forecastday[0].astro.sunset;
                 document.getElementById("weather-icon").src = `https:${data.current.condition.icon}`;
                 document.getElementById("local-time").textContent = data.location.localtime;
-                document.getElementById("city").textContent = data.location.name;
-
-                
+                document.getElementById("city").textContent =`${data.location.name}, ${data.location.region}, ${data.location.country}`;
+               
+                // Fetch and display the country flag
+                fetchCountryFlag(data.location.country);
+                   // Change background based on weather condition
+                   changeBackground(data.current.condition.text);
                 
             })
             .catch(error => console.error("Error fetching weather data:", error));
     }
 
+      // Function to fetch country flag from REST Countries API
+      function fetchCountryFlag(country) {
+        const url = `https://restcountries.com/v3.1/name/${country}`;
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                document.getElementById("country-flag").src = data[0].flags.png;
+            })
+            .catch(error => console.error("Error fetching country flag:", error));
+        }
 
     // Function to get the user's location
     function getUserLocation() {
@@ -51,6 +71,21 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    function changeBackground(condition) {
+        let backgroundUrl;
+        if (condition.includes("Clear")) {
+            backgroundUrl = 'url("/images/sunny.jpg")';
+        } else if (condition.includes("Rainy") || condition.includes("Showers")) {
+            backgroundUrl = 'url("/images/rainy.jpg")';
+        } else if (condition.includes("Partly Cloudy")) {
+            backgroundUrl = 'url("images/cloudy.jpg")';
+        } else if (condition.includes("Snowy")) {
+            backgroundUrl = 'url("/images/snowy.jpg")';
+        } else {
+            backgroundUrl = 'url("/sky.jpg")';
+        }
+        document.body.style.backgroundImage = backgroundUrl;
+    }
     // Get weather for entered city or user's location on button click
     document.getElementById("search-btn").addEventListener("click", function() {
         const city = document.getElementById("location").value;
@@ -59,6 +94,18 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             getUserLocation();
         }
+
+        // Get weather after the 'Enter' key is pressed
+        document.getElementById("location").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                const city = document.getElementById("location").value;
+                if (city) {
+                    fetchWeatherData(city, '');
+                } else {
+                    getUserLocation();
+                }
+            }
+        });
         
     });
 

@@ -1,0 +1,115 @@
+/* General styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+h3{
+    color: rgb(11, 42, 40);
+}
+body {
+    background-image: url('/daniel-ramirez-q4TfWtnz_xw-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Container for the weather app */
+.container {
+    width: 90%;
+    height: 100%;
+    /* max-width: 1200px; */
+    /* background-color: #fff; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    opacity: 0.8;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Search box */
+.search-box {
+    width: 80%;
+    margin-bottom: 20px;
+    display: flex;
+    opacity: 0.8;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    opacity: 0.8;
+}
+.search-box button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+}
+.search-box button:hover {
+    background-color: #0056b3;
+}
+
+/* Weather information */
+.weather-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.weather-info p {
+    width: 250px;
+    height: 100px;
+    margin: 10px;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+}
+.weather-info p span {
+    font-size: 16px;
+    font-weight: bold;
+    color: blue;
+    margin-top: 10px;
+}
+
+
+/* Responsive design for mobile view */
+@media (max-width: 768px) {
+    .weather-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+    .weather-info p {
+        width: 80%;
+    }
+}
